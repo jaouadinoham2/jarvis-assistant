@@ -75,7 +75,7 @@ If you prefer to inspect and run every command manually instead of using the 1-c
 ### Step 3: Set Up Python Environment
 1. Clone the repository:
    ```powershell
-   git clone https://github.com/sahildwivedi2010-cmyk/jarvis-assistant.git
+   git clone https://github.com/theviralcode-labs/jarvis-assistant.git
    cd jarvis-assistant
    ```
 2. Create and activate virtual environment:
