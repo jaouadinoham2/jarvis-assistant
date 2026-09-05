@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JARVIS — Local AI Voice Assistant powered by your GPU">
+    <title>Sahil's JARVIS</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="fullscreen-mode">
+    <!-- Background Video Element -->
+    <video autoplay loop muted playsinline class="bg-video" id="bgVideo">
+        <source src="/static/assets/bg.mp4" type="video/mp4">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-holographic-lines-loop-33060-large.mp4" type="video/mp4">
+    </video>
+
+    <!-- Canvas for Tech Grid / Particle Fallback -->
+    <canvas id="bgCanvas" class="bg-canvas"></canvas>
+    <div class="bg-grid"></div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         LOCK SCREEN — Hand Authentication Gate
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="lockScreen" class="lock-screen">
+        <div class="lock-particles"></div>
+        <div class="lock-content">
+            <div class="lock-logo">
+                <div class="lock-arc-reactor">
+                    <div class="arc-ring arc-ring-1"></div>
+                    <div class="arc-ring arc-ring-2"></div>
+                    <div class="arc-ring arc-ring-3"></div>
+                    <div class="arc-core"></div>
+                </div>
+            </div>
+            <h1 class="lock-title">J.A.R.V.I.S</h1>
+            <p class="lock-subtitle">SECURITY PROTOCOL v3.0</p>
+
+            <div class="camera-box">
+                <video id="authVideo" autoplay playsinline muted></video>
+                <div class="camera-corners">
+                    <span class="corner tl"></span>
+                    <span class="corner tr"></span>
+                    <span class="corner bl"></span>
+                    <span class="corner br"></span>
+                </div>
+                <div class="scan-line-anim"></div>
+            </div>
+
+            <p id="authStatus" class="auth-status">Initializing camera...</p>
+        </div>
+
+        <!-- Access Granted Overlay (hidden until hand verified) -->
+        <div id="accessGranted" class="access-granted" style="display:none">
+            <div class="granted-icon">✓</div>
+            <h2 class="granted-title">ACCESS GRANTED</h2>
+            <p class="granted-sub">Launching JARVIS...</p>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         MAIN JARVIS UI (Hidden until authenticated)
+         ═══════════════════════════════════════════════════════════ -->
+    <div id="mainUI" style="display:none">
+        <div class="hud-container" id="hudContainer">
+            <!-- Left Tech Panel -->
+            <aside class="tech-panel left-panel">
+                <div class="panel-section">
+                    <h3 class="panel-title">SYSTEM STATUS</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">CORE</span>
+                        <span class="stat-value text-glow" id="coreVal">ONLINE</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">LLM ENGINE</span>
+                        <span class="stat-value" id="llmVal">CONNECTING...</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">SPEECH TRANSCRIPT</span>
+                        <span class="stat-value" id="sttVal">CONNECTING...</span>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <h3 class="panel-title">HOLOGRAPHIC WAVEFORM</h3>
+                    <div class="wave-visualizer" id="waveVisualizer">
+                        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Interactive Area -->
+            <main class="center-stage">
+                <div class="hud-center-header">
+                    <h1 class="hud-title-text">SAHIL'S JARVIS</h1>
+                    <p class="hud-subtitle-text">SYSTEM HU-V3.0 // ACTIVE</p>
+                </div>
+
+                <div class="header-right">
+                    <div class="status-badge" id="connectionBadge">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connecting...</span>
+                    </div>
+                    <button class="btn-icon" id="clearBtn" title="Clear memory">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Glowing Central Orb -->
+                <div class="orb-wrapper">
+                    <div class="orb-container" id="orbContainer">
+                        <div class="orb-ring orb-ring-outer"></div>
+                        <div class="orb-ring orb-ring-middle"></div>
+                        <div class="orb-ring orb-ring-inner"></div>
+                        <div class="orb-core" id="orbCore">
+                            <div class="orb-pulse"></div>
+                        </div>
+                        <div class="orb-status" id="orbStatus">OFFLINE</div>
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div class="chat-hud-panel" id="chatHudPanel">
+                    <div class="chat-container" id="chatContainer">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="welcome-message">
+                                <p class="welcome-greeting">Awaiting command, Sahil sir.</p>
+                                <p class="welcome-sub">System initialized. Speak or type to begin.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Tech Panel -->
+            <aside class="tech-panel right-panel">
+                <div class="panel-section">
+                    <h3 class="panel-title">INTERFACE HUD</h3>
+                    <div class="dial-container">
+                        <div class="dial-ring">
+                            <div class="dial-pointer" id="dialPointer"></div>
+                            <span class="dial-text" id="dialText">GPU READY</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <h3 class="panel-title">COMMUNICATION STATS</h3>
+                    <div class="stat-row">
+                        <span class="stat-label">BANDWIDTH</span>
+                        <span class="stat-value">LOCAL</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">REACTION LATENCY</span>
+                        <span class="stat-value" id="latencyVal">N/A</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Bottom Controls Bar -->
+            <footer class="hud-footer">
+                <div class="input-wrapper">
+                    <input
+                        type="text"
+                        id="textInput"
+                        class="text-input"
+                        placeholder="Provide a command, sir..."
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <button class="btn-send" id="sendBtn" title="Transmit command">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                    <button class="btn-stop-main" id="stopBtn" title="Stop speaking" style="display:none;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="4" y="4" width="16" height="16" rx="3"></rect>
+                        </svg>
+                    </button>
+                </div>
+                <button class="mic-btn" id="micBtn" title="Hold to speak">
+                    <div class="mic-ripple"></div>
+                    <svg class="mic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                    <span class="mic-label" id="micLabel">HOLD TO SPEAK</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MediaPipe Hands CDN (for hand detection authentication) -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+    <!-- Scripts -->
+    <script src="/static/app.js?v=3.8"></script>
+    <script src="/static/auth.js?v=3.8"></script>
+</body>
+</html>

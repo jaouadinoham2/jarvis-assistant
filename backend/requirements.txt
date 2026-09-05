@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+websockets
+httpx
+numpy<3
+soundfile
+sounddevice
+pyttsx3
+faster-whisper
+kokoro
+torch
