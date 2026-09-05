@@ -35,120 +35,67 @@ The full 12-page comprehensive technical project report by Sahil is included dir
 
 ---
 
-## ⚡ Quick Start (Windows One-Click Installer)
+## ⚡ 1-Click Zero-Effort Installation (Recommended for Windows)
 
-1. Clone or download this repository:
-   ```powershell
-   git clone https://github.com/sahildwivedi2010-cmyk/jarvis-assistant.git
-   cd jarvis-assistant
-   ```
-2. Double-click **Install_JARVIS.bat** (or run as Administrator).
-3. The installer will automatically check Python, install Ollama, pull Phi-4 Mini, install GPU PyTorch & dependencies, and create a Desktop shortcut!
+> [!TIP]
+> **You do NOT need to install Python, Ollama, or AI models manually!**  
+> The automated installer handles 100% of the downloads, dependencies, models, and shortcuts automatically in a single click.
+
+### 🚀 Just 2 Steps:
+1. **Download & Extract** [`JARVIS_Setup.zip`](JARVIS_Setup.zip) (or clone the repository).
+2. **Double-click `Install_JARVIS.exe`** (or `Install_JARVIS.bat`).
+
+### 🤖 What the Installer Does Automatically For You:
+* ✅ **Checks Python:** Detects Python 3.12+ (installs it via Windows package manager if missing).
+* ✅ **Sets Up Ollama:** Downloads and installs Ollama local AI server in the background.
+* ✅ **Downloads Phi-4 Mini:** Pulls the official ~2.5 GB local model (`ollama pull phi4-mini`).
+* ✅ **GPU PyTorch & Audio:** Creates a virtual environment and installs PyTorch with CUDA, `faster-whisper`, and `kokoro` TTS.
+* ✅ **Creates Desktop Shortcut:** Generates `Start_JARVIS.bat` on your Desktop for 1-click launching!
 
 ---
 
-## 🛠️ Manual Step-by-Step Setup Guide
+<details>
+<summary><b>🔧 Advanced: Optional Manual Step-by-Step Installation (For Developers / Linux / Custom Setups)</b></summary>
+
+<br>
+
+If you prefer to inspect and run every command manually instead of using the 1-click installer:
 
 ### Step 1: Install Ollama (Your AI Brain)
-
 1. Go to **https://ollama.com/download** and download the Windows installer
-2. Run the installer and follow the prompts
-3. Open **PowerShell** and pull the AI model:
+2. Run the installer and pull the AI model:
    ```powershell
    ollama pull phi4-mini
    ```
-   > This downloads a ~2.5GB model. Wait for it to finish.
-
-4. Verify it works:
-   ```powershell
-   ollama run phi4-mini "Say hello"
-   ```
-   > You should see an AI response. Press Ctrl+D to exit.
-
----
 
 ### Step 2: Install espeak-ng (Required for Voice Output)
-
-1. Go to **https://github.com/espeak-ng/espeak-ng/releases**
-2. Download the latest `.msi` file (e.g., `espeak-ng-X.XX-x64.msi`)
-3. Run the installer with **default settings**
-4. **Important**: After installation, add espeak-ng to your PATH:
-   - Open **Start Menu** → Search "Environment Variables"
-   - Click **"Edit the system environment variables"**
-   - Click **"Environment Variables"** button
-   - Under "System variables", find `Path`, click **Edit**
-   - Click **New** and add: `C:\Program Files\eSpeak NG`
-   - Click **OK** on all dialogs
-5. **Restart your PowerShell/terminal** after this
-
----
+1. Download from **https://github.com/espeak-ng/espeak-ng/releases**
+2. Install with default settings and add `C:\Program Files\eSpeak NG` to your system `PATH`.
 
 ### Step 3: Set Up Python Environment
-
-1. Open **PowerShell** and navigate to the project:
+1. Clone the repository:
    ```powershell
    git clone https://github.com/sahildwivedi2010-cmyk/jarvis-assistant.git
    cd jarvis-assistant
    ```
-
-2. Create a virtual environment:
+2. Create and activate virtual environment:
    ```powershell
    python -m venv venv
-   ```
-
-3. Activate the virtual environment:
-   ```powershell
    .\venv\Scripts\Activate.ps1
    ```
-   > You should see `(venv)` at the start of your prompt.
-   > 
-   > **If you get a permissions error**, run this first:
-   ```powershell
-   > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-   > ```
-
-4. Install dependencies:
+3. Install dependencies:
    ```powershell
    pip install -r backend\requirements.txt
    ```
-   > This will download and install all required Python packages.
-   > **Note**: This may take a few minutes. `faster-whisper` and `kokoro` download AI models on first use.
 
----
+### Step 4: Launch JARVIS Manually
+```powershell
+cd backend
+python main.py
+```
+Open **http://localhost:8000** in your browser.
 
-### Step 4: Launch JARVIS! 🚀
-
-1. **Make sure Ollama is running** (it usually starts automatically, but if not):
-   ```powershell
-   # In a separate terminal
-   ollama serve
-   ```
-
-2. **Start the JARVIS server** (in your activated venv):
-   ```powershell
-   cd backend
-   python main.py
-   ```
-
-3. You should see:
-   ```
-   ============================================================
-     🤖 JARVIS — Local AI Voice Assistant
-   ============================================================
-
-   [STARTUP] Checking Ollama connection...
-   [STARTUP] ✅ Ollama is running and model is ready!
-   [STARTUP] Loading Speech-to-Text model...
-   [STT] Model loaded successfully on CUDA!
-   [STARTUP] Loading Text-to-Speech model...
-   [TTS] Kokoro TTS loaded successfully!
-
-   ============================================================
-     🌐 Open http://localhost:8000 in your browser
-   ============================================================
-   ```
-
-4. **Open your browser** and go to: **http://localhost:8000**
+</details>
 
 ---
 
