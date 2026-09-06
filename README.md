@@ -8,6 +8,7 @@ A fully local, GPU-accelerated AI assistant with a futuristic web HUD. Runs 100%
 [![Ollama](https://img.shields.io/badge/Ollama-Phi--4%20Mini-orange.svg)](#)
 [![Whisper](https://img.shields.io/badge/Speech--to--Text-faster--whisper-brightgreen.svg)](#)
 [![Kokoro](https://img.shields.io/badge/Text--to--Speech-Kokoro%20TTS-purple.svg)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
@@ -181,3 +182,10 @@ jarvis/
 ---
 
 Made with 💙 — Your local AI, your rules.
+
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details. Free and open-source for developers worldwide.
